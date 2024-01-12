@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Φόρμα Ελέγχου</title>
+</head>
+<body>
+
+    <form id="myForm" onsubmit="return validateForm()">
+        <label for="name">Όνομα:</label>
+        <input type="text" id="name" name="name" required>
+        <br>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+        <br>
+
+        <label for="password">Κωδικός:</label>
+        <input type="password" id="password" name="password" required>
+        <br>
+
+        <label for="repeatPassword">Επανάληψη Κωδικού:</label>
+        <input type="password" id="repeatPassword" name="repeatPassword" required>
+        <br>
+
+        <button type="submit">Υποβολή</button>
+    </form>
+
+    <script>
+        function validateForm() {
+            // Ελέγχουμε αν όλα τα πεδία είναι συμπληρωμένα
+            var name = document.getElementById("name").value;
+            var email = document.getElementById("email").value;
+            var password = document.getElementById("password").value;
+            var repeatPassword = document.getElementById("repeatPassword").value;
+
+            if (name === "" || email === "" || password === "" || repeatPassword === "") {
+                alert("Παρακαλώ συμπληρώστε όλα τα πεδία.");
+                return false;
+            }
+
+            // Ελέγχουμε αν το email είναι έγκυρο
+            if (!isValidEmail(email)) {
+                alert("Παρακαλώ εισάγετε έγκυρη διεύθυνση email.");
+                return false;
+            }
+
+            // Ελέγχουμε αν ο κωδικός έχει περισσότερους από 8 χαρακτήρες
+            if (password.length < 8) {
+                alert("Ο κωδικός πρέπει να έχει τουλάχιστον 8 χαρακτήρες.");
+                return false;
+            }
+
+            // Ελέγχουμε αν ο κωδικός ταιριάζει με τον επαναλαμβανόμενο κωδικό
+            if (password !== repeatPassword) {
+                alert("Ο κωδικός και η επανάληψη του πρέπει να είναι ίδιοι.");
+                return false;
+            }
+
+            // Εάν όλα είναι εντάξει, επιτρέπουμε την υποβολή της φόρμας
+            return true;
+        }
+
+        function isValidEmail(email) {
+            var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+    </script>
+
+</body>
+</html>
